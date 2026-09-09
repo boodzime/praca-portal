@@ -30,6 +30,7 @@ export async function POST(request: Request) {
   const payload = await request.json().catch(() => null)
   const plan = payload?.plan as keyof typeof plans
   if (!plan || !plans[plan]) return NextResponse.json({ error: 'Nieprawidłowy plan.' }, { status: 400 })
+  const featured = payload?.featured === true
   const rawMetadata = payload?.metadata && typeof payload.metadata === 'object' ? payload.metadata as Record<string, unknown> : {}
   const metadata = Object.fromEntries(['title', 'company', 'kind', 'location', 'category'].map((key) => [key, String(rawMetadata[key] || '').slice(0, 500)]).filter(([, value]) => value))
 
@@ -41,8 +42,10 @@ export async function POST(request: Request) {
   const params = new URLSearchParams()
   params.set('mode', selected.mode)
   params.set('line_items[0][price_data][currency]', 'pln')
-  params.set('line_items[0][price_data][unit_amount]', String(selected.amount))
-  params.set('line_items[0][price_data][product_data][name]', selected.name)
+  const totalAmount = selected.amount + (featured ? 2999 : 0)
+  const productName = featured ? selected.name + ' + wyróżnienie' : selected.name
+  params.set('line_items[0][price_data][unit_amount]', String(totalAmount))
+  params.set('line_items[0][price_data][product_data][name]', productName)
   params.set('line_items[0][price_data][product_data][description]', selected.description)
   if (selected.mode === 'subscription') params.set('line_items[0][price_data][recurring][interval]', 'month')
   params.set('line_items[0][quantity]', '1')
@@ -52,6 +55,7 @@ export async function POST(request: Request) {
   params.set('customer_email', session.user.email)
   params.set('metadata[userId]', session.user.id)
   params.set('metadata[plan]', plan)
+  params.set('metadata[featured]', String(featured))
   for (const [key, value] of Object.entries(metadata)) params.set('metadata[' + key + ']', value)
 
   const stripeResponse = await fetch('https://api.stripe.com/v1/checkout/sessions', {
