@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 
-type CheckoutPlan = 'cv' | 'recruiter'
+type CheckoutPlan = 'cv' | 'recruiter' | 'job' | 'gig' | 'featured'
 
-export function CheckoutButton({ plan, children, className = 'button' }: { plan: CheckoutPlan; children: React.ReactNode; className?: string }) {
+export function CheckoutButton({ plan, children, className = 'button', metadata }: { plan: CheckoutPlan; children: React.ReactNode; className?: string; metadata?: Record<string, string> }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -16,7 +16,7 @@ export function CheckoutButton({ plan, children, className = 'button' }: { plan:
       const response = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan }),
+        body: JSON.stringify({ plan, metadata }),
       })
       const data = await response.json().catch(() => ({}))
       if (response.status === 401) {
