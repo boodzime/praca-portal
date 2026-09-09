@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { SaveJobButton } from '@/components/save-job-button'
 
 const allJobs = [
+  { slug: 'spawacz', title: 'Spawacz', company: 'MetalWorks Polska', location: 'Katowice', mode: 'Stacjonarnie', category: 'Produkcja', salary: '8 000–12 000 zł', match: 94 },
   { slug: 'senior-product-designer', title: 'Senior Product Designer', company: 'Northstar Labs', location: 'Warszawa', mode: 'Hybrydowo', category: 'Design', salary: '18 000–24 000 zł', match: 96 },
   { slug: 'specjalista-automatyzacji-ai', title: 'Specjalista ds. automatyzacji AI', company: 'Orbital Systems', location: 'Polska', mode: 'Zdalnie', category: 'AI / Tech', salary: '14 000–19 000 zł', match: 91 },
   { slug: 'koordynator-projektow', title: 'Koordynator projektów', company: 'Pracownia Forma', location: 'Kraków', mode: 'Stacjonarnie', category: 'Operacje', salary: '9 000–12 000 zł', match: 84 },
