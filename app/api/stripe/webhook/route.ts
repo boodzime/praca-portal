@@ -29,6 +29,8 @@ export async function POST(request: Request) {
       sessionId: event.data?.object?.id,
       userId: event.data?.object?.metadata?.userId,
       plan: event.data?.object?.metadata?.plan,
+      title: event.data?.object?.metadata?.title,
+      company: event.data?.object?.metadata?.company,
     })
   }
   return NextResponse.json({ received: true })
