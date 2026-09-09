@@ -2,19 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { SaveJobButton } from '@/components/save-job-button'
-
-const allJobs = [
-  { slug: 'spawacz', title: 'Spawacz', company: 'MetalWorks Polska', location: 'Katowice', mode: 'Stacjonarnie', category: 'Produkcja', salary: '8 000–12 000 zł', match: 94 },
-  { slug: 'senior-product-designer', title: 'Senior Product Designer', company: 'Northstar Labs', location: 'Warszawa', mode: 'Hybrydowo', category: 'Design', salary: '18 000–24 000 zł', match: 96 },
-  { slug: 'specjalista-automatyzacji-ai', title: 'Specjalista ds. automatyzacji AI', company: 'Orbital Systems', location: 'Polska', mode: 'Zdalnie', category: 'AI / Tech', salary: '14 000–19 000 zł', match: 91 },
-  { slug: 'koordynator-projektow', title: 'Koordynator projektów', company: 'Pracownia Forma', location: 'Kraków', mode: 'Stacjonarnie', category: 'Operacje', salary: '9 000–12 000 zł', match: 84 },
-  { slug: 'frontend-engineer', title: 'Frontend Engineer', company: 'Bright Pixel', location: 'Gdańsk', mode: 'Zdalnie', category: 'AI / Tech', salary: '16 000–22 000 zł', match: 89 },
-  { slug: 'content-strategist', title: 'Content Strategist', company: 'Mosaic Studio', location: 'Warszawa', mode: 'Hybrydowo', category: 'Marketing', salary: '11 000–15 000 zł', match: 82 },
-  { slug: 'customer-success-manager', title: 'Customer Success Manager', company: 'Loopbase', location: 'Poznań', mode: 'Hybrydowo', category: 'Sprzedaż', salary: '10 000–14 000 zł', match: 78 },
-  { slug: 'data-analyst', title: 'Data Analyst', company: 'Metric House', location: 'Wrocław', mode: 'Zdalnie', category: 'Finanse', salary: '13 000–18 000 zł', match: 87 },
-  { slug: 'ux-researcher', title: 'UX Researcher', company: 'Human First', location: 'Łódź', mode: 'Hybrydowo', category: 'Design', salary: '12 000–17 000 zł', match: 85 },
-  { slug: 'project-coordinator', title: 'Project Coordinator', company: 'Good Work Co.', location: 'Katowice', mode: 'Stacjonarnie', category: 'Operacje', salary: '8 000–11 000 zł', match: 76 },
-]
+import { jobs as allJobs } from '@/lib/jobs'
 
 export default function OffersPage() {
   const [query, setQuery] = useState('')
