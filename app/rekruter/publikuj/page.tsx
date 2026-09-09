@@ -1,0 +1,5 @@
+'use client'
+
+import { useState } from 'react'
+
+export default function PublishPage() { const [sent, setSent] = useState(false); return <main className="form-page container"><a className="back-link" href="/rekruter">← Wróć do panelu rekrutera</a><span className="section-kicker">REKRUTER PRO</span><h1>Opublikuj ofertę.</h1><p>Dodaj szczegóły stanowiska, a oferta pojawi się na tablicy możliwości.</p>{sent ? <div className="success-state"><h2>Oferta przygotowana do publikacji.</h2><p>Skontaktujemy się z Tobą, aby potwierdzić szczegóły.</p><a className="button" href="/oferty">Przejdź do ofert</a></div> : <form className="publish-form" onSubmit={(event) => { event.preventDefault(); setSent(true) }}><label>Stanowisko<input required name="title" placeholder="np. Product Designer" /></label><label>Firma<input required name="company" placeholder="Nazwa firmy" /></label><label>Opis<textarea required name="description" placeholder="Opisz rolę i zakres odpowiedzialności" rows={5} /></label><button className="button" type="submit">Opublikuj ofertę <span>↗</span></button></form>}</main> }
