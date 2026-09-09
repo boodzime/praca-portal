@@ -10,6 +10,7 @@ export type Job = {
   salary: string
   match: number
   intro: string
+  kind?: 'etat' | 'zlecenie'
 }
 
 export const jobs: Job[] = [
@@ -23,6 +24,9 @@ export const jobs: Job[] = [
   { slug: 'data-analyst', title: 'Data Analyst', company: 'Metric House', location: 'Wrocław', mode: 'Zdalnie', category: 'Finanse', salary: '13 000–18 000 zł', match: 87, intro: 'Zamieniaj dane w decyzje, które napędzają rozwój firmy.' },
   { slug: 'ux-researcher', title: 'UX Researcher', company: 'Human First', location: 'Łódź', mode: 'Hybrydowo', category: 'Design', salary: '12 000–17 000 zł', match: 85, intro: 'Odkrywaj potrzeby użytkowników i kształtuj lepsze produkty.' },
   { slug: 'project-coordinator', title: 'Project Coordinator', company: 'Good Work Co.', location: 'Katowice', mode: 'Stacjonarnie', category: 'Operacje', salary: '8 000–11 000 zł', match: 76, intro: 'Koordynuj projekty i dbaj, aby wszystko działało jak w zegarku.' },
+  { slug: 'landing-page-na-zlecenie', title: 'Landing page na zlecenie', company: 'Studio Neon', location: 'Zdalnie', mode: 'Zdalnie', category: 'AI / Tech', salary: '2 500–5 000 zł', match: 88, intro: 'Zaprojektuj i wdroż stronę, która zamienia uwagę w działanie.', kind: 'zlecenie' },
+  { slug: 'sesja-zdjeciowa-produktu', title: 'Sesja zdjęciowa produktu', company: 'Forma Market', location: 'Warszawa', mode: 'Stacjonarnie', category: 'Marketing', salary: '1 200–2 500 zł', match: 81, intro: 'Stwórz zdjęcia produktowe gotowe do kampanii i sklepu online.', kind: 'zlecenie' },
+  { slug: 'identyfikacja-wizualna', title: 'Identyfikacja wizualna marki', company: 'North District', location: 'Zdalnie', mode: 'Zdalnie', category: 'Design', salary: '3 000–7 000 zł', match: 86, intro: 'Nadaj nowej marce charakter, który zostaje w pamięci.', kind: 'zlecenie' },
 ]
 
 export const jobBySlug: Record<string, Job> = Object.fromEntries(jobs.map((job) => [job.slug, job]))
