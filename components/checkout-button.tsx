@@ -20,7 +20,7 @@ export function CheckoutButton({ plan, children, className = 'button' }: { plan:
       })
       const data = await response.json().catch(() => ({}))
       if (response.status === 401) {
-        window.location.href = '/sign-in?redirectTo=/kreator-cv'
+        window.location.href = plan === 'recruiter' ? '/sign-in?redirectTo=/rekruter' : '/sign-in?redirectTo=/kreator-cv'
         return
       }
       if (!response.ok || !data.url) {
