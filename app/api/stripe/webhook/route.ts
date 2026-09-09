@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid webhook signature' }, { status: 400 })
   }
 
-  const event = JSON.parse(rawBody) as { type: string; data?: { object?: { id?: string; metadata?: { plan?: string; userId?: string } } } }
+  const event = JSON.parse(rawBody) as { type: string; data?: { object?: { id?: string; metadata?: { plan?: string; userId?: string; title?: string; company?: string } } } }
   if (event.type === 'checkout.session.completed' || event.type === 'checkout.session.async_payment_succeeded') {
     console.info('Stripe payment completed', {
       sessionId: event.data?.object?.id,
