@@ -15,6 +15,9 @@ const plans = {
     mode: 'subscription',
     description: 'Miesięczny dostęp do narzędzi rekrutera',
   },
+  job: { name: 'Publikacja ogłoszenia — pracaFlow', amount: 999, mode: 'payment', description: 'Jednorazowa publikacja ogłoszenia o pracę' },
+  gig: { name: 'Publikacja zlecenia — pracaFlow', amount: 999, mode: 'payment', description: 'Jednorazowa publikacja zlecenia' },
+  featured: { name: 'Wyróżnienie ogłoszenia — pracaFlow', amount: 2999, mode: 'payment', description: 'Wyróżnienie ogłoszenia na tablicy możliwości' },
 } as const
 
 export async function POST(request: Request) {
@@ -27,6 +30,8 @@ export async function POST(request: Request) {
   const payload = await request.json().catch(() => null)
   const plan = payload?.plan as keyof typeof plans
   if (!plan || !plans[plan]) return NextResponse.json({ error: 'Nieprawidłowy plan.' }, { status: 400 })
+  const rawMetadata = payload?.metadata && typeof payload.metadata === 'object' ? payload.metadata as Record<string, unknown> : {}
+  const metadata = Object.fromEntries(['title', 'company', 'kind', 'location', 'category'].map((key) => [key, String(rawMetadata[key] || '').slice(0, 500)]).filter(([, value]) => value))
 
   const selected = plans[plan]
   const requestHeaders = await headers()
@@ -47,6 +52,7 @@ export async function POST(request: Request) {
   params.set('customer_email', session.user.email)
   params.set('metadata[userId]', session.user.id)
   params.set('metadata[plan]', plan)
+  for (const [key, value] of Object.entries(metadata)) params.set('metadata[' + key + ']', value)
 
   const stripeResponse = await fetch('https://api.stripe.com/v1/checkout/sessions', {
     method: 'POST',
