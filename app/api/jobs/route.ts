@@ -9,13 +9,22 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const keywords = searchParams.get('keywords')?.trim() || 'praca'
   const location = searchParams.get('location')?.trim() || 'Polska'
-  const page = searchParams.get('page') || '1'
+  const page = searchParams.get('page')?.trim() || '1'
+  const salary = searchParams.get('salary')?.trim() || ''
+  const contract = searchParams.get('contract')?.trim() || ''
+  const remote = searchParams.get('remote')?.trim() || ''
+
+  if (keywords.length > 160 || location.length > 100 || !/^\d+$/.test(page)) {
+    return NextResponse.json({ error: 'Nieprawidłowe parametry wyszukiwania.' }, { status: 400 })
+  }
+
+  const normalizedKeywords = [keywords, salary, contract, remote === 'true' ? 'praca zdalna' : ''].filter(Boolean).join(' ')
 
   try {
     const response = await fetch(`https://jooble.org/api/${encodeURIComponent(apiKey)}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ keywords, location, page }),
+      body: JSON.stringify({ keywords: normalizedKeywords, location, page }),
       next: { revalidate: 300 },
     })
 
