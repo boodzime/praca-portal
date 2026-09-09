@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
-  const apiKey = process.env.JOOBLE_API_KEY
+  const apiKey = process.env.JOOBLE_API_KEY?.trim()
   if (!apiKey) {
     return NextResponse.json({ error: 'Brak konfiguracji Jooble API.' }, { status: 503 })
   }
@@ -18,10 +18,12 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Nieprawidłowe parametry wyszukiwania.' }, { status: 400 })
   }
 
-  const normalizedKeywords = [keywords, salary, contract, remote === 'true' ? 'praca zdalna' : ''].filter(Boolean).join(' ')
+  // Jooble najlepiej interpretuje zawód jako główne słowo kluczowe. Filtry dodatkowe
+  // nie są doklejane do keywords, bo mogłyby zawęzić wyniki do zera.
+  const normalizedKeywords = [keywords, remote === 'true' ? 'praca zdalna' : ''].filter(Boolean).join(' ')
 
   try {
-    const response = await fetch(`https://jooble.org/api/${encodeURIComponent(apiKey)}`, {
+    const response = await fetch(`https://pl.jooble.org/api/${encodeURIComponent(apiKey)}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ keywords: normalizedKeywords, location, page }),
