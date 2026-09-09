@@ -23,8 +23,10 @@ export default function PublishPage() {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    const type = new URLSearchParams(window.location.search).get('type')
+    const params = new URLSearchParams(window.location.search)
+    const type = params.get('type')
     if (type === 'zlecenia') setPlan('gig')
+    if (params.get('featured') === 'true') setFeatured(true)
     setReady(true)
   }, [])
 
