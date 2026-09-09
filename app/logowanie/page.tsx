@@ -1,0 +1,3 @@
+export default function LoginPage() {
+  return <main className="info-shell"><nav className="nav container"><a className="brand" href="/"><span className="brand-mark">✦</span><span>praca<span>flow</span></span></a></nav><section className="narrow-page auth-page container"><span className="section-kicker">WITAJ PONOWNIE</span><h1>Zaloguj się<br /><span>do swojego świata.</span></h1><form className="form-card"><label>Email<input type="email" placeholder="ty@przyklad.pl" /></label><label>Hasło<input type="password" placeholder="Twoje hasło" /></label><button className="button" type="submit">Zaloguj się <span>↗</span></button><p className="form-note">Nie masz konta? <a href="/rejestracja">Utwórz je bezpłatnie.</a></p></form></section></main>
+}
