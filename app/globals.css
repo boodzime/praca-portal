@@ -18,6 +18,36 @@
 @media (max-width: 800px) { .container { width: min(100% - 28px, 620px); }.nav { height: 70px; }.nav-links, .login-link { display: none; }.hero { grid-template-columns: 1fr; min-height: auto; padding-block: 70px; }.hero h1 { font-size: clamp(50px,15vw,78px); }.hero-visual { min-height: 370px; }.section { padding-block: 80px; }.section-heading { display: block; }.section-heading > p { margin-top: 25px; }.feature-grid, .pricing-grid { grid-template-columns: 1fr; }.feature-card { min-height: 330px; }.recruiter-panel { grid-template-columns: 1fr; padding: 28px; }.recruiter-panel h3 { font-size: 38px; }.recruiter-stats { padding-top: 20px; }.jobs-heading { display: block; }.search-box { margin-top: 28px; width: 100%; }.job-row { gap: 11px; }.job-salary { display: none; }.job-match { min-width: 64px; }.footer-top { display: block; padding-bottom: 45px; }.footer-links { margin-top: 45px; gap: 20px; }.footer-bottom { align-items: flex-start; flex-wrap: wrap; gap: 18px; }.footer-bottom > span:last-child { width: 100%; }.hero-buttons { align-items: flex-start; flex-direction: column; gap: 20px; }.floating-top { right: 0; }.floating-bottom { left: -6px; }.ticker-track { animation-duration: 18s; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; }.ticker-track { animation: none; }.button { transition: none; } * { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
 
+/* Mobile navigation and interactive controls */
+.nav { min-width: 0; }
+.nav > .brand { flex: 0 0 auto; }
+.nav > .button { flex: 0 0 auto; }
+.dashboard-shell { min-width: 0; }
+.dashboard-nav, .profile-chip { text-decoration: none; }
+button, a { -webkit-tap-highlight-color: transparent; }
+.legal-page, .form-page { padding-block: 90px 140px; min-height: 100vh; }
+.legal-page h1, .form-page h1 { margin: 18px 0; font-size: clamp(48px, 8vw, 88px); line-height: .95; letter-spacing: -.08em; font-weight: 500; }
+.legal-page h2, .form-page h2 { margin-top: 56px; font-size: 28px; font-weight: 500; }
+.legal-page p, .form-page > p { max-width: 650px; color: var(--muted); line-height: 1.8; }
+.legal-page a:not(.back-link), .form-page a:not(.button) { color: var(--cyan); }
+.publish-form { display: grid; gap: 18px; max-width: 680px; margin-top: 42px; }
+.publish-form label { display: grid; gap: 8px; color: var(--muted); font-size: 12px; }
+.publish-form input, .publish-form textarea { width: 100%; border: 1px solid var(--line); background: var(--panel); color: var(--foreground); padding: 15px; outline: none; resize: vertical; }
+.publish-form input:focus, .publish-form textarea:focus { border-color: var(--cyan); }
+.success-state { border: 1px solid var(--cyan); background: var(--panel); padding: 30px; max-width: 680px; margin-top: 42px; }
+.success-state p { margin-bottom: 25px; }
+@media (max-width: 800px) {
+  .nav { overflow-x: auto; justify-content: flex-start; gap: 18px; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav .button-small { margin-left: auto; }
+  .dashboard-sidebar { overflow-x: auto; white-space: nowrap; }
+  .dashboard-nav { display: inline-flex; width: auto; }
+  .dashboard-sidebar .brand, .dashboard-sidebar .dashboard-label { display: none; }
+  .legal-page, .form-page { padding-block: 65px 90px; }
+  .offer-card { min-width: 0; }
+}
+
+
 /* Premium interaction layer */
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
 .button, .text-link, .center-link, .job-row, .offer-card, .feature-card a, .arrow-button, .pagination button { transition: transform .25s ease, border-color .25s ease, color .25s ease, background .25s ease, box-shadow .25s ease; }

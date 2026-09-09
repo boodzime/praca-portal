@@ -20,7 +20,7 @@ export default function OffersPage() {
   const [category, setCategory] = useState('Wszystkie kategorie')
   const [page, setPage] = useState(1)
   const perPage = 5
-  const filtered = useMemo(() => allJobs.filter((job) => `${job.title} ${job.company} ${job.category}`.toLowerCase().includes(query.toLowerCase()) && (mode === 'Wszystkie tryby' || job.mode === mode) && (category === 'Wszystkie kategorie' || job.category === category)), [query, mode, category])
+  const filtered = useMemo(() => allJobs.filter((job) => `${job.title} ${job.company} ${job.category} ${job.location} ${job.mode}`.toLowerCase().includes(query.toLowerCase()) && (mode === 'Wszystkie tryby' || job.mode === mode) && (category === 'Wszystkie kategorie' || job.category === category)), [query, mode, category])
   const pages = Math.max(1, Math.ceil(filtered.length / perPage))
   const visible = filtered.slice((page - 1) * perPage, page * perPage)
 
