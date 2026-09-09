@@ -32,7 +32,7 @@ export async function POST(request: Request) {
   if (!plan || !plans[plan]) return NextResponse.json({ error: 'Nieprawidłowy plan.' }, { status: 400 })
   const featured = payload?.featured === true
   const rawMetadata = payload?.metadata && typeof payload.metadata === 'object' ? payload.metadata as Record<string, unknown> : {}
-  const metadata = Object.fromEntries(['title', 'company', 'kind', 'location', 'category'].map((key) => [key, String(rawMetadata[key] || '').slice(0, 500)]).filter(([, value]) => value))
+  const metadata = Object.fromEntries(['title', 'company', 'kind', 'location', 'category'].map((key) => [key, String(rawMetadata[key] || '').slice(0, 500)]).filter(([, value]) => value)) as Record<string, string>
 
   const selected = plans[plan]
   const requestHeaders = await headers()
